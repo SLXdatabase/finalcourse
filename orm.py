@@ -23,7 +23,7 @@ class Expr(object):
                 continue
             keys.append(key)
             params.append(val)
-        params.extern(slef.params)
+        params.extern(self.params)
         sql = 'update %s set %s %s;' % (
             self.model.table,
             ', '.join([key + ' = %s' for key in keys]),
@@ -40,7 +40,7 @@ class Expr(object):
 
     def select(self):
         sql = 'select %s from %s %s;' % (
-            ', '.join(slef.model.fields.keys()),
+            ', '.join(self.model.fields.keys()),
             self.model.table,
             self.where_expr
         )
@@ -96,10 +96,10 @@ class Database(object):
         cls.connection = mdb.connect(
             host=db_config.get('host', 'localhost'),
             port=int(db_config.get('port', 2222)),
-            user=db_config.get('user', 'root'),
-            passwd=db_config.get('password', ''),
+            user=db_config.get('user', 'mysql'),
+            passwd=db_config.get('password', 'mysql'),
             db=db_config.get('database', 'test'),
-            charset=db_config.get('charset', 'utf-8')
+            charset=db_config.get('charset', 'utf8')
         )
         cls.connection.autocommit(cls.autocommit)
         cls.db_config.update(db_config)
