@@ -6,15 +6,15 @@ from orm import *
 
 Database.connect(
     host='localhost',
-    port=2222,
-    user='root',
-    password='',
+    port=3306,
+    user='mysql',
+    password='mysql',
     database='dodo'
 )
 
 
 class UserModel(Model):
-    table = 'user'
+    table = 'User'
 
     userid = Field()
     username = Field()
@@ -23,7 +23,7 @@ class UserModel(Model):
 
 
 class ScoreModel(Model):
-    table = 'score'
+    table = 'Score'
 
     userid = Field()
     movieid = Field()
@@ -35,7 +35,7 @@ class ScoreModel(Model):
 
 
 class MovieModel(Model):
-    tabel = 'movie'
+    tabel = 'Movie'
 
     movieid = Field()
     mname = Field()
