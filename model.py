@@ -35,7 +35,7 @@ class ScoreModel(Model):
 
 
 class MovieModel(Model):
-    tabel = 'Movie'
+    table = 'Movie'
 
     movieid = Field()
     mname = Field()
