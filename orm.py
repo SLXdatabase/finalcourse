@@ -23,7 +23,7 @@ class Expr(object):
                 continue
             keys.append(key)
             params.append(val)
-        params.extern(self.params)
+        params.extend(self.params)
         sql = 'update %s set %s %s;' % (
             self.model.table,
             ', '.join([key + ' = %s' for key in keys]),
@@ -61,10 +61,10 @@ class Expr(object):
 
 class ModelMetaclass(type):
     table = None
-    fields = dict()
 
     def __init__(cls, name, bases, attrs):
         super(ModelMetaclass, cls).__init__(name, bases, attrs)
+        cls.fields = dict()
         for key, val in cls.__dict__.iteritems():
             if isinstance(val, Field):
                 cls.fields[key] = val
