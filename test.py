@@ -95,25 +95,71 @@ def create_movie_instance(
 
 class TestUserModel(unittest.TestCase):
 
+    def setUp(self):
+        if list(UserModel.where(userid=1314).select()) == []:
+            create_user_instance(
+                1314,
+                "lolo",
+                "bobo",
+                "520"
+            )
+        if list(UserModel.where(userid=1315).select()) == []:
+            create_user_instance(
+                1315,
+                "lolo",
+                "bobo",
+                "520"
+            )
+        if list(UserModel.where(userid=1316).select()) == []:
+            create_user_instance(
+                1316,
+                "lolo",
+                "bobo",
+                "520"
+            )
+
+    def tearDown(self):
+        execute_raw_sql("truncate table User;")
+
     def test_instance(self):
-        user = create_user_instance(
-            1314,
-            "lolo",
-            "bobo",
-            "520"
-        )
+        user = UserModel.where(userid=1314).select().next()
 
-    def test_update(self):
-        pass
-
-    def test_limit(self):
-        pass
+        self.assertEquals(user.userid, "1314")
+        self.assertEquals(user.username, "lolo")
+        self.assertEquals(user.password, "bobo")
+        self.assertEquals(user.record, "520")
 
     def test_select(self):
-        pass
+        users = UserModel.where().select()
+
+        for user in users:
+            if user.userid == "1314":
+                pass
+            elif user.userid == "1315":
+                pass
+            else:
+                pass
+
+    def test_update(self):
+        UserModel.where(userid=1314).update(record="1314")
+        user = UserModel.where(userid=1314).select().next()
+
+        self.assertEquals(user.userid, "1314")
+        self.assertEquals(user.username, "lolo")
+        self.assertEquals(user.password, "bobo")
+        self.assertEquals(user.record, "1314")
+
+    def test_limit(self):
+        users = UserModel.where(username="lolo").limit(2).select()
+
+        cnt = 0
+        for user in users: cnt += 1
+        self.assertEquals(2, cnt)
 
     def test_count(self):
-        pass
+        cnt = UserModel.where(username="lolo").count()
+
+        self.assertEquals(3, cnt)
 
 
 class TestScoreModel(unittest.TestCase):
@@ -121,13 +167,13 @@ class TestScoreModel(unittest.TestCase):
     def test_instance(self):
         pass
 
+    def test_select(self):
+        pass
+
     def test_update(self):
         pass
 
     def test_limit(self):
-        pass
-
-    def test_select(self):
         pass
 
     def test_count(self):
@@ -139,13 +185,13 @@ class TestMovieModel(unittest.TestCase):
     def test_instance(self):
         pass
 
+    def test_select(self):
+        pass
+
     def test_update(self):
         pass
 
     def test_limit(self):
-        pass
-
-    def test_select(self):
         pass
 
     def test_count(self):
