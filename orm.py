@@ -5,14 +5,34 @@ import MySQLdb as mdb
 
 
 class Field(object):
-    pass
+    name = None
+
+    def __eq__(self, other):
+        return (self.name, "=", other)
+
+    def __ne__(self, other):
+        return (self.name, "<>", other)
+
+    def __lt__(self, other):
+        return (self.name, "<", other)
+
+    def __le__(self, other):
+        return (self.name, "<=", other)
+
+    def __gt__(self, other):
+        return (self.name, ">", other)
+
+    def __ge__(self, other):
+        return (self.name, ">=", other)
 
 
 class Expr(object):
-    def __init__(self, model, kwargs):
+    def __init__(self, model, args, kwargs):
         self.model = model
-        self.params = kwargs.values()
-        equations = [key + ' = %s' for key in kwargs.keys()]
+        self.params = [arg[2] for arg in args]
+        equations = [' '.join([arg[0], arg[1], '%s']) for arg in args]
+        self.params.extend(kwargs.values())
+        equations.extend([key + ' = %s' for key in kwargs.keys()])
         self.where_expr = 'where ' + ' and '.join(equations) if len(equations) > 0 else ''
 
     def update(self, **kwargs):
@@ -67,6 +87,7 @@ class ModelMetaclass(type):
         cls.fields = dict()
         for key, val in cls.__dict__.iteritems():
             if isinstance(val, Field):
+                val.name = key
                 cls.fields[key] = val
 
 
@@ -82,8 +103,8 @@ class Model(object):
         return Database.execute(sql, self.__dict__.values())
 
     @classmethod
-    def where(cls, **kwargs):
-        return Expr(cls, kwargs)
+    def where(cls, *args, **kwargs):
+        return Expr(cls, args, kwargs)
 
 
 class Database(object):
