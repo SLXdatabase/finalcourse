@@ -16,6 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Date`
+--
+
+DROP TABLE IF EXISTS `Date`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Date` (
+  `movieid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Date`
+--
+
+LOCK TABLES `Date` WRITE;
+/*!40000 ALTER TABLE `Date` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Date` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Movie`
 --
 
@@ -122,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-30 14:45:55
+-- Dump completed on 2019-01-04  9:25:58
