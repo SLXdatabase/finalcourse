@@ -20,6 +20,7 @@ class UserModel(Model):
     username = Field()
     password = Field()
     record = Field()
+    permission = Field()
 
 
 class ScoreModel(Model):
@@ -57,3 +58,10 @@ class MovieModel(Model):
     star3 = Field()
     star2 = Field()
     star1 = Field()
+
+
+class DateModel(Model):
+    table = 'Date'
+
+    date = Field()
+    movieid = Field()

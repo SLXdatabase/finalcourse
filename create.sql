@@ -99,6 +99,7 @@ CREATE TABLE `User` (
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `record` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `permission` smallint(6) NOT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

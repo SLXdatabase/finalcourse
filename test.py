@@ -10,7 +10,8 @@ def create_user_instance(
         userid,
         username,
         password,
-        record
+        record,
+        permission
     ):
     user = UserModel()
 
@@ -18,6 +19,7 @@ def create_user_instance(
     user.username = username
     user.password = password
     user.record = record
+    user.permission = permission
 
     user.save()
     return user
@@ -101,21 +103,24 @@ class TestUserModel(unittest.TestCase):
                 "1998080911",
                 "strawberry",
                 "Leo980809",
-                u"来电狂想/云南虫谷/无敌破坏王"
+                u"来电狂想/云南虫谷/无敌破坏王",
+                0
             )
         if list(UserModel.where(userid="1999022511").select()) == []:
             create_user_instance(
                 "1999022511",
                 "mu001999",
                 "woaini18",
-                u"海王/蜘蛛侠"
+                u"海王/蜘蛛侠",
+                0
             )
         if list(UserModel.where(userid="1999080611").select()) == []:
             create_user_instance(
                 "1999080611",
                 "likemilk",
                 "woaihemilk",
-                u"龙猫/狗十三"
+                u"龙猫/狗十三",
+                0
             )
 
     def tearDown(self):
