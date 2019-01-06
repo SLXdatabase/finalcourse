@@ -209,11 +209,11 @@ CREATE TABLE `Movie` (
   `introduction` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `allActors` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
   `numOfEvaluator` int(11) NOT NULL,
-  `5star` int(11) NOT NULL,
-  `4star` int(11) NOT NULL,
-  `3star` int(11) NOT NULL,
-  `2star` int(11) NOT NULL,
-  `1star` int(11) NOT NULL,
+  `star5` int(11) NOT NULL,
+  `star4` int(11) NOT NULL,
+  `star3` int(11) NOT NULL,
+  `star2` int(11) NOT NULL,
+  `star1` int(11) NOT NULL,
   PRIMARY KEY (`movieid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
