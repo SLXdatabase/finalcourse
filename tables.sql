@@ -16,25 +16,174 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Date`
+-- Table structure for table `Actor`
 --
 
-DROP TABLE IF EXISTS `Date`;
+DROP TABLE IF EXISTS `Actor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Date` (
-  `movieid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
+CREATE TABLE `Actor` (
+  `actorid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `actorname` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sex` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `age` int(11) NOT NULL,
+  `country` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `height` int(11) NOT NULL,
+  `birthplace` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nation` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `constellation` char(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`actorid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Date`
+-- Dumping data for table `Actor`
 --
 
-LOCK TABLES `Date` WRITE;
-/*!40000 ALTER TABLE `Date` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Date` ENABLE KEYS */;
+LOCK TABLES `Actor` WRITE;
+/*!40000 ALTER TABLE `Actor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Actor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Director`
+--
+
+DROP TABLE IF EXISTS `Director`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Director` (
+  `dirtorid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirorname` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirsex` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirage` int(11) NOT NULL,
+  `dircountry` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirheight` int(11) NOT NULL,
+  `dirbirthplace` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirnation` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirconstellation` char(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`dirtorid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Director`
+--
+
+LOCK TABLES `Director` WRITE;
+/*!40000 ALTER TABLE `Director` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Director` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Editor`
+--
+
+DROP TABLE IF EXISTS `Editor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Editor` (
+  `ediid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ediname` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `edisex` char(1) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ediage` int(11) NOT NULL,
+  `edicountry` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ediheight` int(11) NOT NULL,
+  `edibirthplace` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `edination` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ediconstellation` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`ediid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Editor`
+--
+
+LOCK TABLES `Editor` WRITE;
+/*!40000 ALTER TABLE `Editor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Editor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `MD`
+--
+
+DROP TABLE IF EXISTS `MD`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `MD` (
+  `movieid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirtorid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`movieid`,`dirtorid`),
+  KEY `FK_MD_MD2_DIRECTOR` (`dirtorid`),
+  CONSTRAINT `FK_MD_MD2_DIRECTOR` FOREIGN KEY (`dirtorid`) REFERENCES `Director` (`dirtorid`),
+  CONSTRAINT `FK_MD_MD_MOVIE` FOREIGN KEY (`movieid`) REFERENCES `Movie` (`movieid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `MD`
+--
+
+LOCK TABLES `MD` WRITE;
+/*!40000 ALTER TABLE `MD` DISABLE KEYS */;
+/*!40000 ALTER TABLE `MD` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ME`
+--
+
+DROP TABLE IF EXISTS `ME`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ME` (
+  `movieid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ediid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`movieid`,`ediid`),
+  KEY `FK_ME_ME2_EDITOR` (`ediid`),
+  CONSTRAINT `FK_ME_ME2_EDITOR` FOREIGN KEY (`ediid`) REFERENCES `Editor` (`ediid`),
+  CONSTRAINT `FK_ME_ME_MOVIE` FOREIGN KEY (`movieid`) REFERENCES `Movie` (`movieid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ME`
+--
+
+LOCK TABLES `ME` WRITE;
+/*!40000 ALTER TABLE `ME` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ME` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `MovAct`
+--
+
+DROP TABLE IF EXISTS `MovAct`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `MovAct` (
+  `movieid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `actorid` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `character` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Mov_movieid` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Act_actorid` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  KEY `FK_MOVACT_AMA_ACTOR` (`Act_actorid`),
+  KEY `FK_MOVACT_MMA_MOVIE` (`Mov_movieid`),
+  CONSTRAINT `FK_MOVACT_AMA_ACTOR` FOREIGN KEY (`Act_actorid`) REFERENCES `Actor` (`actorid`),
+  CONSTRAINT `FK_MOVACT_MMA_MOVIE` FOREIGN KEY (`Mov_movieid`) REFERENCES `Movie` (`movieid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `MovAct`
+--
+
+LOCK TABLES `MovAct` WRITE;
+/*!40000 ALTER TABLE `MovAct` DISABLE KEYS */;
+/*!40000 ALTER TABLE `MovAct` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,13 +209,12 @@ CREATE TABLE `Movie` (
   `introduction` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `allActors` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
   `numOfEvaluator` int(11) NOT NULL,
-  `star5` int(11) NOT NULL,
-  `star4` int(11) NOT NULL,
-  `star3` int(11) NOT NULL,
-  `star2` int(11) NOT NULL,
-  `star1` int(11) NOT NULL,
-  PRIMARY KEY (`movieid`),
-  UNIQUE KEY `AK_MOVIE_MOVIE` (`movieid`)
+  `5star` int(11) NOT NULL,
+  `4star` int(11) NOT NULL,
+  `3star` int(11) NOT NULL,
+  `2star` int(11) NOT NULL,
+  `1star` int(11) NOT NULL,
+  PRIMARY KEY (`movieid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -96,7 +244,11 @@ CREATE TABLE `Score` (
   `content` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `watched` smallint(6) NOT NULL,
   `star` int(11) NOT NULL,
-  PRIMARY KEY (`movieid`,`userid`)
+  PRIMARY KEY (`movieid`,`userid`),
+  KEY `FK_SCORE_SM_MOVIE` (`Mov_movieid`),
+  KEY `FK_SCORE_US_USER` (`Use_userid`),
+  CONSTRAINT `FK_SCORE_SM_MOVIE` FOREIGN KEY (`Mov_movieid`) REFERENCES `Movie` (`movieid`),
+  CONSTRAINT `FK_SCORE_US_USER` FOREIGN KEY (`Use_userid`) REFERENCES `User` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,4 +296,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04  9:25:58
+-- Dump completed on 2019-01-06 18:07:59
