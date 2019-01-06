@@ -60,8 +60,65 @@ class MovieModel(Model):
     star1 = Field()
 
 
-class DateModel(Model):
-    table = 'Date'
+class DirectorModel(Model):
+    table = 'Director'
 
-    date = Field()
+    dirtorid = Field()
+    dirorname = Field()
+    dirsex = Field()
+    dirage = Field()
+    dircountry = Field()
+    dirheight = Field()
+    dirbirthplace = Field()
+    dirnation = Field()
+    dirconstellation = Field()
+
+
+class EditorModel(Model):
+    table = 'Editor'
+
+    ediid = Field()
+    ediname = Field()
+    edisex = Field()
+    ediage = Field()
+    edicountry = Field()
+    ediheight = Field()
+    edibirthplace = Field()
+    edination = Field()
+    ediconstellation = Field()
+
+
+class ActorModel(Model):
+    table = 'Actor'
+
+    actorid = Field()
+    actorname = Field()
+    sex = Field()
+    age = Field()
+    country = Field()
+    height = Field()
+    birthplace = Field()
+    nation = Field()
+    constellation = Field()
+
+
+class MovActModel(Model):
+    table = 'MovAct'
+
     movieid = Field()
+    character = Field()
+    actorid = Field()
+
+
+class MDModel(Model):
+    table = 'MD'
+
+    movieid = Field()
+    dirtorid = Field()
+
+
+class MEModel(Model):
+    table = 'ME'
+
+    movieid = Field()
+    ediid = Field()
