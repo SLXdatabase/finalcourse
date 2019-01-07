@@ -106,8 +106,8 @@ class MovActModel(Model):
     table = 'MovAct'
 
     movieid = Field()
-    character = Field()
     actorid = Field()
+    character = Field()
 
 
 class MDModel(Model):
