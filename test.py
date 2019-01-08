@@ -210,6 +210,7 @@ def create_me_instance(
     me.save()
     return me
 
+
 class TestUserModel(unittest.TestCase):
 
     def setUp(self):
@@ -482,8 +483,9 @@ class TestMovieModel(unittest.TestCase):
 
         self.assertEquals(1, cnt)
 
+
 class TestEditorModel(unittest.TestCase):
-    
+
     def setUp(self):
         if list(EditorModel.where(ediid="1111100001").select()) == []:
             create_editor_instance(
@@ -525,15 +527,15 @@ class TestEditorModel(unittest.TestCase):
 
         editors = EditorModel.where(edicountry=u"中国").limit(2).select()
 
-        cnt = 0
-        for editor in editors: cnt += 1
+        cnt = len(list(editors))
         self.assertEquals(1, cnt)
 
 
         cnt = EditorModel.where(edicountry=u"中国").count()
 
         self.assertEquals(1, cnt)
-        
+
+
 class TestActorModel(unittest.TestCase):
 
     def setUp(self):
@@ -586,8 +588,9 @@ class TestActorModel(unittest.TestCase):
 
         self.assertEquals(1, cnt)
 
+
 class TestDirectorModel(unittest.TestCase):
-    
+
     def setUp(self):
         if list(DirectorModel.where(dirtorid="3333300001").select()) == []:
             create_director_instance(
@@ -636,6 +639,8 @@ class TestDirectorModel(unittest.TestCase):
         cnt = DirectorModel.where(dirage=42).count()
 
         self.assertEquals(1, cnt)
+
+
 """
 class TestMovActModel(unittest.TestCase):
     
@@ -684,6 +689,7 @@ class TestMovActModel(unittest.TestCase):
         self.assertEquals(1, cnt)
 """
 
+
 class TestMEModel(unittest.TestCase):
     
     def setUp(self):
@@ -728,6 +734,7 @@ class TestMEModel(unittest.TestCase):
         cnt = MEModel.where(movieid="0000000001").count()
 
         self.assertEquals(1, cnt)
+
 
 class TestMDModel(unittest.TestCase):
     
@@ -775,8 +782,7 @@ class TestMDModel(unittest.TestCase):
         self.assertEquals(1, cnt)
 
 
-
 if __name__ == "__main__":
-    for table in ['User', 'Movie', 'Score', 'Editor', 'Director', 'Actor']:
+    for table in ['User', 'Movie', 'Score', 'Editor', 'Director', 'Actor', 'MovAct', 'MD', 'ME']:
         execute_raw_sql("truncate table " + table + ";")
     unittest.main()
